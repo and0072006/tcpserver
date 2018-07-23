@@ -1,0 +1,11 @@
+#  Number of clients
+NumberClients 10
+
+#  Time for wait
+TimeWait 10
+
+# Name of log file
+LogFile log.txt
+
+AllowLogging true
+
