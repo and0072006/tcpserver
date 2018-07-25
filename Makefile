@@ -19,3 +19,5 @@ tcpclient:
 conf:
 	$(MAKE) -C conf
 
+
+.PHONY: tcpserver log tcpclient conf

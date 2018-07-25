@@ -24,7 +24,6 @@ CFLAGS += -DPLATFORM_LINUX
 
 
 LIBS += -lpthread
-LIBS += -lxml2
 
 BUILDTYPE = debug
 

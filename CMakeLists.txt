@@ -14,5 +14,8 @@ add_executable(server
 	conf/CParameters.cpp
 	conf/CParameters.h
 	conf/IConfigReader.h
+	log/FileLogger.cpp
+	log/FileLogger.h
+	log/ILoggerImpl.h
 	log/Logger.cpp
 	log/Logger.h)

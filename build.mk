@@ -19,11 +19,11 @@ else ifneq ($(NAME),)
 $(TARGETPATH): $(DEPS) $(OBJS)
 	@echo "    Linking $(notdir $@)"
 	@mkdir -p $(shell dirname $(TARGETPATH))
-	$(CXX) $(CFLAGS) $(CXXFLAGS) $(LINK_FLAGS) $(OBJS) $(LIBS) $(COVERAGE_FLAGS) -o $(TARGETPATH) 
+	$(CXX) $(CINC) $(CFLAGS) $(CXXFLAGS) $(LINK_FLAGS) $(OBJS) $(LIBS) $(COVERAGE_FLAGS) -o $(TARGETPATH) 
 endif
 
 $(OBJDIR)/%.o: %.cpp
 	@echo "    Compiling $<"
 	$(dir_guard)
-	$(CXX) $(CFLAGS) $(CXXFLAGS) -o $(abspath $@) -c $(abspath $<)
+	$(CXX) $(CINC) $(CFLAGS) $(CXXFLAGS) -o $(abspath $@) -c $(abspath $<)
 
