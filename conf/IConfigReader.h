@@ -1,16 +1,10 @@
 #pragma once
 
 #include <string>
+#include "../tcpserver/Util.h"
+
 
 using namespace std;
-
-struct Parameters
-{
-    string logFile;
-    int time;
-    bool switchLog;
-};
-
 
 class IConfigReader
 {

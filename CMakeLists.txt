@@ -11,8 +11,6 @@ add_executable(server
 	tcpclient/main.cpp
 	conf/ConfigReaderFromFile.cpp
 	conf/ConfigReaderFromFile.h
-	conf/CParameters.cpp
-	conf/CParameters.h
 	conf/IConfigReader.h
 	log/FileLogger.cpp
 	log/FileLogger.h
