@@ -2,7 +2,7 @@ Port 4400
 IPAddr 127.0.0.1
 
 #  Number of clients
-NumberClients 10
+MaxClients 10
 
 #  Time for wait
 TimeWait 10

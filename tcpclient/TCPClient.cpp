@@ -6,11 +6,18 @@ TCPClient::TCPClient(int sock, struct sockaddr_in addr, CoreFeaturePtr core)
     m_addr = addr;
     m_pCore = core;
     LOGD("Client created\n");
-    LOGI("Session has been established!");
+    std::stringstream ss;
+    ss << "Session has been established: id " << m_sock 
+       << ", ip addres " << inet_ntoa(addr.sin_addr)
+       << ", port " << ntohs(addr.sin_port) << endl;
+    LOGI(ss.str());
 }
 
 TCPClient::~TCPClient()
 {
+    std::stringstream ss;
+    ss << "Session has been closed: id " << m_sock << endl;
+    LOGI(ss.str());
     close(m_sock);
 }
 

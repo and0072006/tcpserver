@@ -28,7 +28,8 @@ private:
     int m_sock;
     int m_port;
     string m_ipAddr;
-    int m_numberClient;
+    int m_maxClients;
+    int m_numberClients;
     mutex m_mutex;
     std::atomic<bool> m_run;
     CoreFeaturePtr m_pCore;

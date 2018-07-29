@@ -18,7 +18,7 @@ struct Parameters
     string ipAddr;
     string logFile;
     bool   switchLog;
-    int    numberClient;
+    int    maxClients;
     int    logLevel;
 };
 

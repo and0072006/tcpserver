@@ -41,11 +41,11 @@ bool TxtConfigReader::ReadConfig(const string& file, Parameters* param)
     }
     param->ipAddr = m_data["IPAddr"];
 
-    if (m_data.find("NumberClients") == m_data.end())
+    if (m_data.find("MaxClients") == m_data.end())
     {
         return false;
     }
-    param->numberClient = atoi(m_data["NumberClients"].c_str());
+    param->maxClients = atoi(m_data["MaxClients"].c_str());
 
     if (m_data.find("TimeWait") == m_data.end())
     {

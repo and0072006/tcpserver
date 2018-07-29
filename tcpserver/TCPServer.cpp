@@ -10,7 +10,8 @@ TCPServer::TCPServer(Parameters param, CoreFeaturePtr core)
 {
     m_port = param.port;
     m_ipAddr = param.ipAddr;
-    m_numberClient = param.numberClient;
+    m_maxClients = param.maxClients;
+    m_numberClients = 0;
     m_pCore = core;
 }
 
@@ -31,7 +32,7 @@ bool TCPServer::startServer(){
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(m_port);
-    addr.sin_addr.s_addr=inet_addr(m_ipAddr.c_str());
+    inet_aton(m_ipAddr.c_str(), &addr.sin_addr);
 
     if(bind(m_sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
     {
@@ -40,7 +41,7 @@ bool TCPServer::startServer(){
     }
     LOGD("TCPServer has been bind.");
 
-    listen(m_sock, m_numberClient);
+    listen(m_sock, m_maxClients);
     LOGD("TCPServer has been listen.");
 
     return handle();
@@ -72,6 +73,9 @@ void TCPServer::handleClient()
     int addrlen = sizeof(addr);
     if ((sockClient = accept(m_sock, (struct sockaddr*)&addr, (socklen_t*)&addrlen)) != 0) 
     {
+        std::stringstream ss;
+        ss << "Number of clients " << ++m_numberClients;
+        LOGI(ss.str());
         TCPClientPtr client = make_shared<TCPClient>(sockClient, addr, m_pCore);
         Function func = bind(&TCPServer::removeClient, this, client);
         client->SetCall(func);
