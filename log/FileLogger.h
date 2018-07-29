@@ -14,8 +14,10 @@ class FileLogger: public ILoggerImpl
     ofstream m_out;
 public:
     FileLogger(string file);
-    virtual ~FileLogger(){};
+    virtual ~FileLogger(){ m_out.close();};
     
     virtual void log(string str);
+    virtual ILoggerImpl& operator<<(int x);
+    virtual ILoggerImpl& operator<<(string str);
     bool init();
 };

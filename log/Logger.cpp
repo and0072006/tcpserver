@@ -2,16 +2,19 @@
 #include "Logger.h"
 
 
-void Logger::Log(string str) 
+ILoggerImpl& Logger::Log(string head, string str) 
 { 
     std::unique_lock<std::mutex> lok(m_mutex);
-    m_pLImpl->log(str); 
+    m_pLImpl->log(head);
+    m_pLImpl->log(str);
+    return *m_pLImpl;
 }
 
-void Logger::Log(long ll) 
+ILoggerImpl& Logger::Log(string head, long ll) 
 { 
     stringstream ss; 
-    ss << ll;
+    ss << head << ll;
     std::unique_lock<std::mutex> lok(m_mutex); 
-    m_pLImpl->log(ss.str()); 
+    m_pLImpl->log(ss.str());
+    return *m_pLImpl; 
 }

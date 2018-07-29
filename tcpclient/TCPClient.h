@@ -21,6 +21,7 @@ public:
     void handle();
     void SetCall(Function fun);
     void start();
+    int GetSocket() const;
 private:
     int m_sock;
     struct sockaddr_in m_addr;

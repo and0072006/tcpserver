@@ -3,6 +3,7 @@
 FileLogger::FileLogger(string file):
     m_file(file)
 {
+    init();
 }
 
 bool FileLogger::init()
@@ -18,9 +19,18 @@ bool FileLogger::init()
 
 void FileLogger::log(string str)
 {
-    if (init())
-    {
-        m_out << str << endl;
-        m_out.close();
-    }
+    m_out << str;
 }
+
+ILoggerImpl& FileLogger::operator<<(int x)
+{
+    m_out << x;
+    return *this;
+}
+
+ILoggerImpl& FileLogger::operator<<(string str)
+{
+    m_out << str;
+    return *this;
+}
+

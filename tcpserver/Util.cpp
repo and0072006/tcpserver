@@ -23,7 +23,7 @@ void CoreFeature::stop()
 
 void CoreFeature::info()
 {
-    LOGD("Core Feature stoping.");
+    LOGD("Core Feature stoping\n");
 }
 
 void CoreFeature::handle()
@@ -47,6 +47,7 @@ void CoreFeature::addCall(Function fun)
 {
     unique_lock<mutex> lk(m_mutex);
     m_functions.push_back(fun);
+    m_cond.notify_all();
 }
 
 

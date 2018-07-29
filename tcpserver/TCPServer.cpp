@@ -26,7 +26,7 @@ bool TCPServer::startServer(){
     m_sock = socket(AF_INET, SOCK_STREAM, 0); 
     if (m_sock < 0)
     {
-        LOGE("Couldn't open socket.");
+        LOGE("Couldn't open socket\n");
         return false;
     }
 
@@ -36,20 +36,20 @@ bool TCPServer::startServer(){
 
     if(bind(m_sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
     {
-        LOGE("Couldn't bind socket.");
+        LOGE("Couldn't bind socket\n");
         return false;
     }
-    LOGD("TCPServer has been bind.");
+    LOGD("TCPServer has been bind\n");
 
     listen(m_sock, m_maxClients);
-    LOGD("TCPServer has been listen.");
+    LOGD("TCPServer has been listen\n");
 
     return handle();
 }
 
 void TCPServer::stopServer() 
 {
-    LOGD("TCPServer stoping.");
+    LOGD("TCPServer stoping\n");
     m_run = false;
     unique_lock<mutex> lock(m_mutex);
     for(auto &it: m_threads)
@@ -62,8 +62,12 @@ void TCPServer::removeClient(TCPClientPtr client)
 {
     unique_lock<mutex> lock(m_mutex);
     auto ithr = m_threads.find(client);
+    (*ithr).second.join();
     if(ithr != m_threads.end())
+    {
         m_threads.erase(ithr);
+        LOGD("Client has been deleted\n");
+    }
 }
 
 void TCPServer::handleClient() 
@@ -73,9 +77,7 @@ void TCPServer::handleClient()
     int addrlen = sizeof(addr);
     if ((sockClient = accept(m_sock, (struct sockaddr*)&addr, (socklen_t*)&addrlen)) != 0) 
     {
-        std::stringstream ss;
-        ss << "Number of clients " << ++m_numberClients;
-        LOGI(ss.str());
+        LOGI("Number of clients ") << ++m_numberClients << "\n";
         TCPClientPtr client = make_shared<TCPClient>(sockClient, addr, m_pCore);
         Function func = bind(&TCPServer::removeClient, this, client);
         client->SetCall(func);
@@ -105,7 +107,7 @@ bool TCPServer::handle()
 
         res = select (m_sock + 1, &rfds, &wfds, NULL, &tv);
         if (res < 0) {
-            LOGE("Error select");
+            LOGE("Error select\n");
             return false;
         }
         else if (!m_run) 

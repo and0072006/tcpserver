@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     Parameters param;
     if (!pConf->ReadConfig("/home/anvecher/server/conf/config.txt",&param))
     {
-        LOGE("Couldn't read config file.");
+        LOGE("Couldn't read config file\n");
         return 0;
     }
     Logger::m_logLevel = param.logLevel;
@@ -55,7 +55,7 @@ int main(int argc, char** argv)
                                    &cond,
                                    &lmutex);
     cond.wait(lock); 
-    LOGD("Core Feature has been started.");
+    LOGD("Core Feature has been started\n");
     TCPServerPtr pServer = make_shared<TCPServer>(param, pCoreFeature);
     auto TCPSreverThread = async(launch::async,
                                  StartServer,
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
                                  &cond,
                                  &lmutex);
     cond.wait(lock);
-    LOGD("TCPServer has been started.");
+    LOGD("TCPServer has been started\n");
 
     char str[10];
     while(cin.getline(str, 10))
@@ -74,9 +74,9 @@ int main(int argc, char** argv)
 
     pServer->stopServer();
     TCPSreverThread.get();
-    LOGD("TCPServer has been stoped.");
+    LOGD("TCPServer has been stoped\n");
     pCoreFeature->stop();
     coreFeatureThread.get();
-    LOGD("Core Feature has been stoped.");
+    LOGD("Core Feature has been stoped\n");
     return 0;
 }
