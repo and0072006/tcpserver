@@ -8,14 +8,15 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <thread>
-
+#include <unistd.h>
+#include "../log/Logger.h"
 
 using namespace std;
 
 class TCPClient
 {
 public:
-    TCPClient(int sock, struct sockaddr_in addr);
+    TCPClient(int sock, struct sockaddr_in addr, CoreFeaturePtr core);
     ~TCPClient();
     void handle();
     void SetCall(Function fun);
@@ -23,7 +24,6 @@ public:
 private:
     int m_sock;
     struct sockaddr_in m_addr;
-    char buffer[1024];
     CoreFeaturePtr m_pCore;
     Function m_fun;
 };

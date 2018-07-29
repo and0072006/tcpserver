@@ -16,6 +16,14 @@ void CoreFeature::start()
 void CoreFeature::stop()
 {
     m_run = false;
+    Function fun = bind(&CoreFeature::info, this);
+    addCall(fun);
+    m_cond.notify_all();
+}
+
+void CoreFeature::info()
+{
+    LOGD("Core Feature stoping.");
 }
 
 void CoreFeature::handle()
@@ -39,4 +47,15 @@ void CoreFeature::addCall(Function fun)
 {
     unique_lock<mutex> lk(m_mutex);
     m_functions.push_back(fun);
+}
+
+
+
+int Worker::Factorial(int value)
+{
+  int res = 1, i;
+  for (i = 1; i <= value; i++) {
+        res = res * i;
+  }
+  return res;
 }

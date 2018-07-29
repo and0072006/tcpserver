@@ -18,14 +18,31 @@ void StartCoreFeature(CoreFeaturePtr core, std::condition_variable* cond, std::m
     core->start();
 }
 
+void StartServer(TCPServerPtr server, std::condition_variable* cond, std::mutex* mut)
+{
+    {
+        unique_lock<mutex> lock(*mut);
+        cond->notify_all();
+    }
+    server->startServer();
+}
+
+int Logger::m_logLevel = 1;
+ILoggerImpl* Logger::m_pLImpl = NULL;
+std::mutex Logger::m_mutex;
 
 int main(int argc, char** argv)
 {
-    LoggerPtr pLog = std::make_shared<Logger>(new FileLogger("logfile"));
-    pLog->Log("Test");
+    LoggerPtr pLog = std::make_shared<Logger>();
     ConfigReaderPtr pConf = std::make_shared<ConfigReader>(new TxtConfigReader());
     Parameters param;
-    pConf->ReadConfig("config.txt",&param);
+    if (!pConf->ReadConfig("/home/anvecher/server/conf/config.txt",&param))
+    {
+        LOGE("Couldn't read config file.");
+        return 0;
+    }
+    Logger::m_logLevel = param.logLevel;
+    Logger::m_pLImpl = new FileLogger(param.logFile);
 
     std::condition_variable cond;
     std::mutex lmutex;
@@ -38,10 +55,28 @@ int main(int argc, char** argv)
                                    &cond,
                                    &lmutex);
     cond.wait(lock); 
+    LOGD("Core Feature has been started.");
+    TCPServerPtr pServer = make_shared<TCPServer>(param, pCoreFeature);
+    auto TCPSreverThread = async(launch::async,
+                                 StartServer,
+                                 pServer,
+                                 &cond,
+                                 &lmutex);
+    cond.wait(lock);
+    LOGD("TCPServer has been started.");
 
-    TCPServerPtr server = make_shared<TCPServer>(param);
-    server->startServer();
+    char str[10];
+    while(cin.getline(str, 10))
+    {
+        if(strcmp(str, "stop") == 0)
+            break;
+    }
 
-    std::cout << "Hello";
+    pServer->stopServer();
+    TCPSreverThread.get();
+    LOGD("TCPServer has been stoped.");
+    pCoreFeature->stop();
+    coreFeatureThread.get();
+    LOGD("Core Feature has been stoped.");
     return 0;
 }

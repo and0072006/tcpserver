@@ -11,5 +11,5 @@ class IConfigReader
 public:
     virtual ~IConfigReader() = default;
 
-    virtual void ReadConfig(const string& file, Parameters* pParam) = 0;
+    virtual bool ReadConfig(const string& file, Parameters* pParam) = 0;
 };

@@ -8,17 +8,21 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <map>
+#include <atomic>
+#include <iostream>
+#include <unistd.h>
 
 using namespace std;
 
 class TCPServer
 {
 public:
-    TCPServer(Parameters param);
+    TCPServer(Parameters param, CoreFeaturePtr core);
     ~TCPServer();
-    void startServer();
+    bool startServer();
     void stopServer();
-    void handle();
+    bool handle();
+    void handleClient();
     void removeClient(TCPClientPtr client);
 private:
     int m_sock;
@@ -26,6 +30,8 @@ private:
     string m_ipAddr;
     int m_numberClient;
     mutex m_mutex;
+    std::atomic<bool> m_run;
+    CoreFeaturePtr m_pCore;
     map<TCPClientPtr, thread> m_threads;
 };
 

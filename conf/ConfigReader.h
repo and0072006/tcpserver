@@ -14,7 +14,7 @@ public:
     ConfigReader(IConfigReader* pReader): m_pReader(pReader){};
     ~ConfigReader(){delete m_pReader;};
 
-    void ReadConfig(const string& file, Parameters* pParam);
+    bool ReadConfig(const string& file, Parameters* pParam);
 };
 
 typedef shared_ptr<ConfigReader> ConfigReaderPtr;

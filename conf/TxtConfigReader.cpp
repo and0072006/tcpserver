@@ -3,23 +3,23 @@
 bool TxtConfigReader::init(const string& file)
 {
     int length = 1024;
-    char buff[lrngth];
-    ifstream fin("cppstudio.txt");
-    if (!fin.is_open())a
+    char buff[length];
+    ifstream fin(file);
+    if (!fin.is_open())
     {
-        cout << "Файл не может быть открыт!\n";
-        returt false;
+        return false;
     }
     while(fin.getline(buff, length))
     {
         string str = buff;
-        int offer = str.find(" ", 0);
+        std::string::size_type offer = str.find(" ", 0);
         if(offer != string::npos)
         {
             m_data[str.substr(0, offer)] = str.substr(offer + 1);
         }
     }
-    fin.close();
+    fin.close();
+    return true;
 }
 
 bool TxtConfigReader::ReadConfig(const string& file, Parameters* param)
@@ -33,39 +33,43 @@ bool TxtConfigReader::ReadConfig(const string& file, Parameters* param)
     {
         return false;
     }
-    param.port = m_data["Port"]; 
+    param->port = atoi(m_data["Port"].c_str()); 
 
     if (m_data.find("IPAddr") == m_data.end())
     {
         return false;
     }
-    param.ipAddr = m_data["IPAddr"];
+    param->ipAddr = m_data["IPAddr"];
 
-    if (im_data.find("NumberClients") == m_data.end())
+    if (m_data.find("NumberClients") == m_data.end())
     {
         return false;
     }
-    param.numberClient = m_data["NumberClients"];
+    param->numberClient = atoi(m_data["NumberClients"].c_str());
 
     if (m_data.find("TimeWait") == m_data.end())
     {
         return false;
     }
-    param.time = m_data["TimeWait"];
+    param->time = atoi(m_data["TimeWait"].c_str());
 
     if (m_data.find("LogFile") == m_data.end())
     {
         return false;
     }
-    param.logFile = m_data["LogFile"];
+    param->logFile = m_data["LogFile"];
 
     if (m_data.find("AllowLogging") == m_data.end())
     {
         return false;
     }
-    param.switchLog = m_data["AllowLogging"];
-
-    return true
+    param->switchLog = atoi(m_data["AllowLogging"].c_str());
+    if (m_data.find("LogLevel") == m_data.end())
+    {
+        return false;
+    }
+    param->logLevel = atoi(m_data["LogLevel"].c_str());
+    return true;
 }
 
 

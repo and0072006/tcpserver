@@ -1,5 +1,5 @@
 Port 4400
-IPAddr 127.0.0.0
+IPAddr 127.0.0.1
 
 #  Number of clients
 NumberClients 10
@@ -8,7 +8,9 @@ NumberClients 10
 TimeWait 10
 
 # Name of log file
-LogFile log.txt
+LogFile /home/anvecher/log.txt
 
-AllowLogging true
+AllowLogging 1
+
+LogLevel 4
 

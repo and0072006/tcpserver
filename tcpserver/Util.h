@@ -6,7 +6,8 @@
 #include <condition_variable>
 #include <vector>
 #include <memory>
-
+#include <iostream>
+#include "../log/Logger.h"
 
 using namespace std;
 
@@ -16,8 +17,14 @@ struct Parameters
     int    port;
     string ipAddr;
     string logFile;
-    bool switchLog;
+    bool   switchLog;
     int    numberClient;
+    int    logLevel;
+};
+
+struct T_MSG
+{
+    int value;
 };
 
 typedef std::function<void()> Function;
@@ -31,6 +38,7 @@ private:
     atomic<bool> m_run;
 
     void handle();
+    void info();
 public:
     ~CoreFeature();
 
@@ -41,3 +49,8 @@ public:
 
 typedef shared_ptr<CoreFeature> CoreFeaturePtr;
 
+class Worker
+{
+public:
+    static int Factorial(int value);
+};

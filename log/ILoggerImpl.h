@@ -9,5 +9,5 @@ class ILoggerImpl
 {
 public:
     virtual ~ILoggerImpl() = default;
-    virtual void log(string str) const = 0;
+    virtual void log(string str) = 0;
 };
