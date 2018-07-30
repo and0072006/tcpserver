@@ -16,7 +16,7 @@ using namespace std;
 class TCPClient
 {
 public:
-    TCPClient(int sock, struct sockaddr_in addr, CoreFeaturePtr core);
+    TCPClient(int sock, struct sockaddr_in addr, CoreFeaturePtr core, int timeWait);
     ~TCPClient();
     void handle();
     void SetCall(Function fun);
@@ -27,6 +27,7 @@ private:
     struct sockaddr_in m_addr;
     CoreFeaturePtr m_pCore;
     Function m_fun;
+    int m_timeWait;
 };
 
 typedef shared_ptr<TCPClient> TCPClientPtr;

@@ -1,0 +1,8 @@
+    Запустить сервер
+./bin/debug/tcpserver
+
+    Остановить сервер
+stop
+
+    Конфиг файл
+./conf/config.txt

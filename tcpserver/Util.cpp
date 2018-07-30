@@ -1,4 +1,5 @@
 #include "Util.h"
+#include "../log/Logger.h"
 
 CoreFeature::~CoreFeature()
 {

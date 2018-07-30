@@ -7,7 +7,6 @@
 #include <vector>
 #include <memory>
 #include <iostream>
-#include "../log/Logger.h"
 
 using namespace std;
 
@@ -17,7 +16,7 @@ struct Parameters
     int    port;
     string ipAddr;
     string logFile;
-    bool   switchLog;
+    bool   allowLogging;
     int    maxClients;
     int    logLevel;
 };

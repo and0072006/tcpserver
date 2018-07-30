@@ -13,6 +13,7 @@ TCPServer::TCPServer(Parameters param, CoreFeaturePtr core)
     m_maxClients = param.maxClients;
     m_numberClients = 0;
     m_pCore = core;
+    m_timeWait = param.time;
 }
 
 TCPServer::~TCPServer()
@@ -78,7 +79,7 @@ void TCPServer::handleClient()
     if ((sockClient = accept(m_sock, (struct sockaddr*)&addr, (socklen_t*)&addrlen)) != 0) 
     {
         LOGI("Number of clients ") << ++m_numberClients << "\n";
-        TCPClientPtr client = make_shared<TCPClient>(sockClient, addr, m_pCore);
+        TCPClientPtr client = make_shared<TCPClient>(sockClient, addr, m_pCore, m_timeWait);
         Function func = bind(&TCPServer::removeClient, this, client);
         client->SetCall(func);
         {

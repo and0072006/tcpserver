@@ -63,7 +63,7 @@ bool TxtConfigReader::ReadConfig(const string& file, Parameters* param)
     {
         return false;
     }
-    param->switchLog = atoi(m_data["AllowLogging"].c_str());
+    param->allowLogging = atoi(m_data["AllowLogging"].c_str());
     if (m_data.find("LogLevel") == m_data.end())
     {
         return false;

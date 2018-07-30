@@ -30,6 +30,7 @@ private:
     string m_ipAddr;
     int m_maxClients;
     int m_numberClients;
+    int m_timeWait;
     mutex m_mutex;
     std::atomic<bool> m_run;
     CoreFeaturePtr m_pCore;

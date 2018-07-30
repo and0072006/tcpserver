@@ -1,6 +1,6 @@
 #include "../log/Logger.h"
 #include "../conf/ConfigReader.h"
-#include "../tcpserver/Util.h"
+//#include "../tcpserver/Util.h"
 #include "../tcpserver/TCPServer.h"
 #include <iostream>
 #include <stdio.h>
@@ -28,8 +28,8 @@ void StartServer(TCPServerPtr server, std::condition_variable* cond, std::mutex*
 }
 
 int Logger::m_logLevel = 1;
+int Logger::m_allowLogging = 0;
 ILoggerImpl* Logger::m_pLImpl = NULL;
-std::mutex Logger::m_mutex;
 
 int main(int argc, char** argv)
 {
@@ -41,8 +41,7 @@ int main(int argc, char** argv)
         LOGE("Couldn't read config file\n");
         return 0;
     }
-    Logger::m_logLevel = param.logLevel;
-    Logger::m_pLImpl = new FileLogger(param.logFile);
+    Logger::init(&param);
 
     std::condition_variable cond;
     std::mutex lmutex;

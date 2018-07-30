@@ -5,7 +5,7 @@ IPAddr 127.0.0.1
 MaxClients 10
 
 #  Time for wait
-TimeWait 10
+TimeWait 2
 
 # Name of log file
 LogFile /home/anvecher/log.txt
