@@ -1,0 +1,15 @@
+/home/anvecher/server/tmp/CMakeFiles/edit_cache.dir
+/home/anvecher/server/tmp/CMakeFiles/rebuild_cache.dir
+/home/anvecher/server/tmp/CMakeFiles/server.dir
+/home/anvecher/server/tmp/tcpserver/CMakeFiles/edit_cache.dir
+/home/anvecher/server/tmp/tcpserver/CMakeFiles/rebuild_cache.dir
+/home/anvecher/server/tmp/tcpserver/CMakeFiles/tcpserver.dir
+/home/anvecher/server/tmp/tcpclient/CMakeFiles/edit_cache.dir
+/home/anvecher/server/tmp/tcpclient/CMakeFiles/rebuild_cache.dir
+/home/anvecher/server/tmp/tcpclient/CMakeFiles/tcpclient.dir
+/home/anvecher/server/tmp/conf/CMakeFiles/edit_cache.dir
+/home/anvecher/server/tmp/conf/CMakeFiles/rebuild_cache.dir
+/home/anvecher/server/tmp/conf/CMakeFiles/conf.dir
+/home/anvecher/server/tmp/log/CMakeFiles/rebuild_cache.dir
+/home/anvecher/server/tmp/log/CMakeFiles/edit_cache.dir
+/home/anvecher/server/tmp/log/CMakeFiles/log.dir

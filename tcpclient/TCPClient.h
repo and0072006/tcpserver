@@ -22,12 +22,14 @@ public:
     void SetCall(Function fun);
     void start();
     int GetSocket() const;
+    void stopClient();
 private:
     int m_sock;
     struct sockaddr_in m_addr;
     CoreFeaturePtr m_pCore;
     Function m_fun;
     int m_timeWait;
+    bool m_run;
 };
 
 typedef shared_ptr<TCPClient> TCPClientPtr;

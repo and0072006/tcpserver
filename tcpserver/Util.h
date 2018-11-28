@@ -24,6 +24,7 @@ struct Parameters
 struct T_MSG
 {
     int value;
+    char msg[5];
 };
 
 typedef std::function<void()> Function;

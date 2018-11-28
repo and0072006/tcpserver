@@ -54,8 +54,12 @@ void TCPServer::stopServer()
     m_run = false;
     unique_lock<mutex> lock(m_mutex);
     for(auto &it: m_threads)
+    {
+        it.first->stopClient();
         it.second.join();
+    }
     m_threads.clear();
+    shutdown(m_sock, 2);
     close(m_sock);
 }
 
