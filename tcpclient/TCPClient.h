@@ -29,7 +29,7 @@ private:
     CoreFeaturePtr m_pCore;
     Function m_fun;
     int m_timeWait;
-    bool m_run;
+    std::atomic<bool> m_run;
 };
 
 typedef shared_ptr<TCPClient> TCPClientPtr;

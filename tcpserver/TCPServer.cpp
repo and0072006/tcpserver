@@ -67,9 +67,9 @@ void TCPServer::removeClient(TCPClientPtr client)
 {
     unique_lock<mutex> lock(m_mutex);
     auto ithr = m_threads.find(client);
-    (*ithr).second.join();
     if(ithr != m_threads.end())
     {
+        (*ithr).second.join();
         m_threads.erase(ithr);
         LOGD("Client has been deleted\n");
     }
